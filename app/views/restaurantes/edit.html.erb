@@ -1,0 +1,20 @@
+<h1>Editing restaurante</h1>
+<% if @restaurante.errors.any? %>
+<ul>
+<% @restaurante.errors.full_messages.each do |msg| %>
+  <li><%= msg %></li>
+<% end %>
+</ul>
+<%end%>
+
+<%= form_for @restaurante do |f| %>
+  Nome: <%= f.text_field :nome %><br/>
+  Endereço: <%= f.text_field :endereco %><br/>
+  Especialidade: <%= f.text_field :especialidade %><br/>
+  <%= f.submit %>
+<% end %>
+
+<!--<%= render 'form' %>-->
+
+<%= link_to 'Show', @restaurante %> |
+<%= link_to 'Back', restaurantes_path %>
