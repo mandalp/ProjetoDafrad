@@ -3,14 +3,18 @@ class RestaurantesController < ApplicationController
 
   # GET /restaurantes
   # GET /restaurantes.json
-  
+  respond_to :html, :xml, :json
  
   def index
    # @restaurantes = Restaurante.order :nome
    #@restaurantes = Restaurante.all
     #render "index"
    @restaurantes = Restaurante.all.paginate(:page => params[:page], :per_page => 5)
-
+    respond_to do |format|
+          format.html
+          format.xml { render :xml => @restaurantes }
+          format.json { render :json => @restaurantes }
+    end
   end
 
   # GET /restaurantes/1
@@ -35,7 +39,6 @@ class RestaurantesController < ApplicationController
     @restaurante = Restaurante.new(restaurante_params)
     #@restaurante = Restaurante.new params.require(:restaurante).permit(:nome, :endereco,:especialidade)
     #@restaurante = Restaurante.new(params[:restaurante])
-
     respond_to do |format|
       if @restaurante.save
         format.html { redirect_to @restaurante, notice: 'Restaurante criado com sucesso!.' }
